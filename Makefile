@@ -33,7 +33,7 @@ cleans += thesis.aux thesis.bbl thesis.blg thesis.lof thesis.log \
   thesis.lot thesis.out thesis.toc mthesis.pdf setup.aux
 toplevels += mthesis.pdf
 
-mthesis.pdf: thesis.tex $(deps)
+mthesis.pdf: main.tex $(deps)
 	pdflatex $(texargs) $(basename $<) >chatter.txt
 	bibtex $(basename $<)
 	pdflatex $(texargs) $(basename $<) >chatter.txt

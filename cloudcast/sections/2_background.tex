@@ -1,0 +1,72 @@
+\section{Background}
+\label{s:background}
+
+
+% merge this with section 3 
+% title: problem? price optimized multicast? 
+% problem statement? 
+% 1. cloud pricing/resources 2. challenges 3. simple example 
+
+\ion{Only the last two sections fit in a background sections, i.e., cloud pricing and resource limits. The rest should be part of related work. So maybe split them in a relatd work and background section. (Remember that a background section typically introduces concepts and lays the ground for the rest of the paper.}
+
+%In this paper, we consider the problem of bulk data transfer from one to many cloud regions, which is at most on the order of ~100s of destinations. 
+%Bulk data dissemination over the WAN is a well-studied area, with many application-level multicast algorithms such as 
+%Many de-centralized approach to data-dissemination have also been proposed, though these are less relevant since they typically suffer reduced performance and higher complexity to support scaling to millions of destinations, which is not necessary in our scenario. 
+
+
+
+
+
+
+%\subsection{High-Throughput Data Distribution}
+
+%\subsection{Cloud pricing models}
+%\label{ss:cloud-pricing}
+%\subsection{Cloud data replication}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Cloud data replication}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Bulk data dissemination and data multicast are well studied areas. Recent work from \cite{sima2022ekko} \cite{flinn2022owl} introduced systems for low-latency, bulk replication across datacenters. Prior work in multicast and overlay networking has extensively explored how high-throughput distribution trees can be built for efficiently disseminating data. Cloud data replication is supported by a variety of cloud services, such as AWS DataSync and cross-region replicated buckets, which automatically replicate written data from a bucket in one region to one or more buckets in other regions. However these services have limited support for cross-cloud data movement, and do not optimize the distribution topology to minimize egress costs even from intra-cloud data movement. 
+
+%Rather than relying on just cloud networking, we use cloud VM instances to create an overlay network over cloud networks. Creating an overlay network to optimize cross-clouds transfers was introduced by recent work in Skyplane \cite{jain2022skyplane}. Transferring data with VMs is subjected to artificial network egress/ingress limits imposed on VMs by cloud providers. For example, AWS limits cross-region egress to 5Gbps per VM. Since the limits are imposed per-VM, the per-region limits can be increased by increasing the number of VMs per-region. However additional VMs will incur additional costs, and cloud providers also limit the number of VMs that can be created per-region, so per-region ingress/egress is not infinite. 
+
+%Cloud networks throughput is also highly dependent on the region pairs that data is being transferred between. For example, generally intra-cloud transfers are much higher throughput than inter-cloud transfers, which must go over the WAN. Even intra-cloud transfers can vary in throughput, as show in \ref{fig:tp_heatmap}. However, prior work in Skyplane \cite{jain2022skyplane} showed that throughput profiles between cloud region pairs are fairly stable over 24-hour periods, so can be used to inform a static planner that routes data over high-throughput links. 
+
+%Bulk data dissemination and data multicast are well studied areas. Recent work from \cite{sima2022ekko} \cite{flinn2022owl} introduced systems for low-latency, bulk replication across datacenters. Prior work in multicast and overlay networking has extensively explored how high-throughput distribution trees can be built for efficiently disseminating data. 
+
+
+%Prior work in Skyplane \cite{jain2022skyplane} optimized point-to-point transfers creating a VM overlay network to route data along high-throughput, low egress-cost links. Skyplane showed that network throughput between region pairs across cloud providers is fairly stable over a 24-hour period, so these profiles can be used to design a static planner that routes long-distance transfers around slow links via overlays. Although Skyplane incorporates both cloud pricing and cloud network characteristics to create optimized point-to-point transfer plans, the optimizer cannot be extended to support multi-destination replication as the identify of partitions of data is not represented in the optimization. Furthermore, Skyplane's implementation does not support multiple destinations and cannot be easily modified to due so, as it does not support sending specific sub-partitions of data specific destinations. \sarah{too much detail?}
+
+
+
+
+
+
+
+
+
+% In this paper, we present \sys, a system for bulk data broadcast across cloud regions and providers that utilizes the above insights to discover and implement substantially more efficient data transfers.
+
+% At a high level, \sys allows users to ingest data at a source region using a modular set of connectors (e.g., a VM's filesystem or cloud object store) and broadcast it to one or more destination regions/providers.
+% Users of \sys supply the source and destination(s) along with a target transfer completion latency.
+% The \sys planner then automatically computes an ideal broadcast topology and executes the transfer accordingly.
+% \sys's design, therefore, consists of two primary components:
+
+% \begin{vitemize}
+% \item A framework for the elastic instantiation of an overlay network of VM instances that is both highly performant and programmable for easy reconfiguration.
+% \item A solver that considers a full range of possible overlay configurations to derive optimized strategies given user objectives.
+% \end{vitemize}
+
+% %In order to evaluate different topologies, we design \sys{} to support programmable broadcast topologies.
+% %The overlay networks that \sys instantiates \todo{...}
+% %To support different broadcast topologies, \sys{} creates an overlay network of VM instances in specific cloud provider regions to relay data.
+% %Broadcast topologies assign different sub-partitions of the data to different paths along the network, so \sys{} needs to be able to route specific sub-partitions of the data over specific paths along the overlay.
+
+% Note that although \sys{} is designed for one-off bulk data broadcasts, it can be extended to continual replication via repeated broadcasts of diffs in a straightforward fashion.
+% We leave a full exploration of that use case and potential domain-specific optimizations to future work.
+
+% %determines a broadcast topology and deploys an overlay topology of application-space routers (overlay routers) running on cloud VMs to create this network topology.
+% %that supports programmable broadcast topologies, including an ILP optimizer for minimizing cost under runtime constraints.

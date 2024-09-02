@@ -1,0 +1,93 @@
+\section{Related Work}
+
+\topheading{Overlay Unicast} A significant body of prior work uses overlay networks to improve the performance and resilience of one-to-one data transfers in the Internet and peer-to-peer networks~\cite{andersen2001resilient, kostic2003bullet, castro2003splitstream}.
+In clouds, previous work has also leveraged cloud elasticity to further improve performance~\cite{matos2009clon, jain2022skyplane}.
+However, they do not consider multicast, and except Skyplane~\cite{jain2022skyplane}, none consider the monetary cost of replication in the cloud.
+%\heading{Skyplane}
+Handling multicast is challenging.
+For example, while~\cite{jain2022skyplane} can leverage elastic resources, cloud pricing models, and overlay networking for bulk unicast replication in the cloud, its techniques are not directly applicable to the multicast setting.
+More specifically, Skyplane's flow-based throughput model results in ambiguous multicast distribution tree solutions as it ignores the identity of data sent along multiple paths.
+Furthermore, since Skyplane's optimizer is not designed for multicast, it cannot take advantage of techniques such as leveraging multiple distribution trees to alleviate source bottlenecks. 
+
+\heading{Overlay Multicast}
+% \todo{Provide reader with context on systems like Overcast, BDS, SplitStream, Bullet, etc.} 
+End-system multicast~\cite{chu2002case} and overlay multicast have been proposed to efficiently disseminate data from a single source to multiple destinations. 
+Many application-level multicast algorithms have been proposed. 
+%Most of them are based on single or multiple multicast trees per sender. 
+Algorithms like SPIDER~\cite{ganguly2005fast}, SplitStream~\cite{castro2003splitstream}, Bullet~\cite{kostic2003bullet}, and Overcast~\cite{jannotti2000overcast} are designed for high-bandwidth, cross-internet file distribution with application-level multicast overlays.
+However, 
+like with most overlay unicast systems, 
+these algorithms ignore monetary costs and focus on techniques to maximize bandwidth. 
+
+ \heading{Inter-DC Replication}
+Extensive prior work addresses inter-DC replication~\cite{sima2022ekko, flinn2022owl, zhang2018bds, laoutaris2011inter, feng2012jetway}, including bulk multicast~\cite{luo2019deadline}. Recent research includes deadline~\cite{luo2019deadline} and cost-awareness~\cite{fatemipour2022cost, feng2012jetway}. However, the cost model in the Inter-DC setting cannot be easily adapted to cloud users, for which network pricing is based on total data volume rather than bandwidth.  Furthermore, existing formulations are not designed for multicast~\cite{fatemipour2022cost, feng2012jetway} or do not consider more than a few geo-distributed regions~\cite{luo2019deadline}.  Our work focuses on public clouds, considering unique per-GB network pricing, elastic resources, and cloud-specific resource constraints.  Our approximation algorithm is also designed to scale to all regions across multiple cloud vendors.
+
+ \heading{Traffic Engineering}
+The classic problem of traffic engineering has also formulated optimization problems for minimizing cost under performance constraints.
+These techniques have recently been applied to cloud providers and their monetary costs.
+For example, Entact~\cite{zhang2010optimizing} studied how to optimize costs for online service providers while still minimizing user latency.  
+Similarly, Cascara~\cite{singh2021cost} leveraged latency-equivalent paths to identify cost-minimizing paths for cloud providers.
+Like Inter-DC Replication, these approaches have been developed from the perspective of the cloud or service provider and, thus, present a materially different optimization problem.
+
+
+\heading{Steiner Trees}
+The Steiner Tree algorithm has been applied in the multicast setting both to minimize costs in terms of delay~\cite{jiang2016constructing} and cloud egress costs~\cite{garcia2015cost}).  CloudMPCast~\cite{garcia2015cost} minimizes egress costs in cloud bulk data multicast by constructing a Steiner Tree overlay network that avoids low-throughput cross-region paths.  However, CloudMPCast overlooks VM capacity and per-VM egress/ingress limits in its MILP formulation.  Also, CloudMPCast aims to achieve \textit{comparable} performance to direct transfers while minimizing cost, unlike \sys, which optimizes throughput. 
+
+
+\heading{Geo-Distributed Storage}
+Geo-distributed storage via data replication is supported by a variety of cloud services, such as AWS Cross-Region Replication~\cite{aws-replication}, AWS Multi-Region Access Points~\cite{aws-access-point}, and GCP Multi-region buckets~\cite{gcp-multi-region-bucket}.  Cross-region replicated buckets (e.g., S3 replication rules) automatically replicate written data from a bucket in one region to one or more buckets in other regions.  However, these services have limited support for cross-cloud data movement and do not minimize egress costs even for intra-cloud data movement.  SPANStore~\cite{wu2013spanstore} designs a system for geo-distributed storage across multiple cloud providers, and also optimizes egress costs of relaying data on PUT requests.  However, its relay strategy is optimized for latency, not bandwidth.  \shu{they actually do consider latency as an SLO constraint, same as ours; the difference is the resource limit constraint}
+
+\heading{Peer-to-peer Multicast}
+Peer-to-peer systems (P2P) support file sharing among a set of end-user clients.
+% 
+The BitTorrent protocol~\cite{cohen2003incentives} reduces the network load on the source by allowing clients to upload and download data to each other. 
+% 
+BitTorrent is widely used for data multicast in data center environments by Facebook~\cite{facebook-bittorrent} and Twitter~\cite{twitter-bittorrent}.
+% 
+Specialized systems for data multicast that use BitTorrent include Uber's Kraken~\cite{uber-kraken} and Ant Group's Dragonfly~\cite{dragonfly}.
+% 
+These P2P systems have significant overhead as they are designed for adversarial settings where peers may be unreliable or fail.
+% 
+Moreover, P2P systems must scale to millions of destinations and therefore lack centralized control which prevents custom routing topologies.
+% 
+P2P systems may redundantly send data over expensive links due to a lack of cost awareness. 
+
+\begin{table}[tb]
+	\footnotesize
+	\begin{center}
+        		\resizebox{\columnwidth}{!}{%
+		\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+		\begin{tabular}{@{}lccccc@{}}
+			\toprule
+\textsc{Method}   & \begin{tabular}{@{}c@{}}\textsc{Multicast} \\\end{tabular} & \begin{tabular}{@{}c@{}}\textsc{Cloud} \\ \textsc{Pricing}\end{tabular} & \begin{tabular}{@{}c@{}}\textsc{Striping} \end{tabular} & \begin{tabular}{@{}c@{}}\textsc{Resource} \\ \textsc{Elasticity}\end{tabular} \\
+			\midrule
+			\multicolumn{5}{@{}l}{\textbf{Unicast overlay networks}} \\
+			RON~\cite{andersen2001resilient} & $\times$ & $\times$ & $\checkmark$ & $\times$\\
+			Skyplane~\cite{jain2022skyplane} & $\times$ & $\checkmark$ & $\checkmark$ & $\checkmark$\\ 
+                COMS~\cite{fatemipour2022cost}& $\times$  & $\times$ & $\times$ & $\sim$\\ 
+			\midrule
+			\multicolumn{5}{@{}l}{\textbf{Peer-to-peer}} \\
+			BitTorrent~\cite{cohen2003incentives} & $\checkmark$ & $\times$ & $\checkmark$ & $\times$\\
+			SplitStream~\cite{castro2003splitstream} & $\checkmark$ & $\times$ & $\checkmark$ & $\times$\\
+			Bullet~\cite{kostic2003bullet} & $\checkmark$ & $\times$ & $\checkmark$ & $\times$\\
+			\midrule
+			\multicolumn{5}{@{}l}{\textbf{Inter-DC overlay multicast}} \\
+			SPIDER~\cite{ganguly2005fast} & $\checkmark$ & $\times$ & $\checkmark$ & $\times$\\
+			%QuickCast & TODO & TODO & TODO & TODO \\
+			CodedBulk~\cite{tseng2021codedbulk} & $\checkmark$ & $\times$ & $\checkmark$ & $\times$\\
+			BDS~\cite{zhang2018bds} & $\checkmark$ & $\times$ & $\checkmark$ & $\times$\\
+                Deadline-aware Inter-DC~\cite{deadline2018} & $\checkmark$ & $\times$ & $\times$ & $\checkmark$ \\
+			\midrule
+			\multicolumn{5}{@{}l}{\textbf{Cost optimized overlay networks}} \\
+			SPANStore~\cite{wu2013spanstore} & $\checkmark$ & $\checkmark$ & $\times$ & $\times$\\
+            CloudMPCast~\cite{garcia2015cost} & $\checkmark$ & $\checkmark$ & $\times$ & $\times$\\
+            Jetway~\cite{feng2012jetway} & $\times$ & $\checkmark$ & $\checkmark$ & $\times$ \\
+            \midrule
+			\rowcolor{Gray} \sys (ours) & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$\\ 
+			\bottomrule
+		\end{tabular}
+  }
+	\end{center}
+	\caption{\sys{} builds on prior work by enabling multicast, optimizing cloud costs, and leveraging cloud resource elasticity and multiple distribution trees.}
+	\label{tab:updated_baselines}
+\end{table}

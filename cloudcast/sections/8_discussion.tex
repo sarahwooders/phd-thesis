@@ -1,0 +1,11 @@
+\section{Discussion}
+
+\subsection{How does egress pricing affect multicast topologies?}
+Different egress pricing models impact the generated multicast topologies. For example, Cloudflare R2 \cite{https://www.cloudflare.com/products/r2/} provides zero egress fee object storage. One can imagine putting the replicated data in Cloudflare R2 and reading it from multiple endpoints. In this way, we only need to pay the egress fee once for moving data out from the source instead of paying it repeatedly for multiple destinations. 
+\shu{Should extend the discussions to talk about 1) how do we select cost-optimal topology now? are there any insights? 2) how will future changes in cloud pricings affect the cost-optimal topology (include Cloudflare, IBM free egress inter-region here)}
+
+\subsection{Failures and Straggler Mitigation}
+In \sys{}'s setting, the sockets can have very different rates of sending data over the network due to \cite{}. We have implemented a few mechanisms on top of \sys{} to mitigate stragglers. \shu{we might add measurements of this} There are other scenarios where failures might occur. For example, a VM might fail during the course of the transfer. 
+
+% \subsection{Solver ablations}
+% Should move some of the graphs for the solver studies here 
