@@ -45,6 +45,99 @@
 \usepackage{mydeluxetable} % deluxetable customized to play well with ucthesis
 
 
+% ralf imports 
+% Smart references
+\usepackage[capitalize]{cleveref}
+\usepackage{multirow}
+%\usepackage[table]{colortbl}
+\usepackage[a-2b]{pdfx}
+\crefformat{section}{#2\S#1#3}
+%\crefname{section}{\S}{\S}
+\crefname{listing}{Lst.}{Lst.}
+
+
+\newcommand{\system}{RALF}
+
+% Conditionals (for draft mode)
+\usepackage{ifthen}
+% Special fractions
+\usepackage{nicefrac}
+
+% listings 
+\usepackage{listings}
+%\usepackage{xcolor}
+\lstloadlanguages{Python}
+
+% Subfigures
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Algorithms
+\usepackage{algorithm}
+%\SetKwComment{Comment}{/* }{ */}
+
+% Bolded paragraphs.
+\newcommand{\myparagraph}[1]{\noindent{\bfseries #1.}}
+
+% argmax 
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% TODO Comments.
+\newif\ifcomments
+\commentstrue
+\commentsfalse
+\ifcomments
+\usepackage[textsize=small,color=lightgray]{todonotes}
+\else
+\usepackage[disable]{todonotes}
+\fi
+
+% TODO: add yourself
+\newcommand{\sarah}[1]{\todo[color=cyan!40]{\textbf{Sarah}: #1}\ignorespaces}
+\newcommand{\joey}[1]{\todo[color=green!50]{\textbf{Joey}: #1}\ignorespaces}
+\newcommand{\important}[1]{\todo[color=red!50]{\textbf{Important}: #1}\ignorespaces}
+\newcommand{\amit}[1]{\todo[color=yellow!50]{\textbf{Amit}: #1}\ignorespaces}
+\newcommand{\natacha}[1]{\todo[color=orange!50]{\textbf{Natacha}: #1}\ignorespaces}
+\newcommand{\kevin}[1]{\todo[color={magenta!40}]{\textbf{Kevin}: #1}\ignorespaces}
+\newcommand{\simon}[1]{\todo[color={gray!40}]{\textbf{Simon}: #1}\ignorespaces}
+\newcommand{\jmh}[1]{\todo[color={gray!40}]{\textbf{JMH}: #1}\ignorespaces}
+
+% Increase page size if comments.         
+\ifcomments                                                                     
+% Increase page size without affecting formatting
+\paperwidth=\dimexpr \paperwidth + 8cm\relax
+\oddsidemargin=\dimexpr\oddsidemargin + 4cm\relax
+\evensidemargin=\dimexpr\evensidemargin + 4cm\relax
+\marginparwidth=\dimexpr \marginparwidth + 3cm\relax            
+\fi
+
+%\RequirePackage[loading]{tracefnt}
+%\usepackage[weather]{ifsym}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+%\acmConference[SIGMOD '23]{}{Jyune 03--05, 2018}{Woodstock, NY}
+%
+%  Uncomment \acmBooktitle if th title of the proceedings is different
+%  from ``Proceedings of ...''!
+%
+%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+%  June 03--05, 2018, Woodstock, NY} 
+%\acmPrice{15.00}
+%\acmISBN{978-1-4503-XXXX-X/18/06}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%\acmSubmissionID{32}
+
+
+
+
 \begin{document}
 \ssp % single spacing
 \hypersetup{pageanchor=false}
@@ -88,5 +181,11 @@ This dissertation was typeset using the
 \end{frontmatter}
 
 \include{intro/intro}
+
+% ralf 
+\include{ralf/main}
+% cloudcast 
+
 \bibliography{thesis}{}
+
 \end{document}
