@@ -1,0 +1,43 @@
+\section{Discussion}
+\label{s:discussion}
+In this paper we focused on feature stores in the context of online serving and real-time maintenance for staleness-sensitive features. However, real-world deployments of feature stores have diverse requirements, design choices, and applications in ML pipelines. 
+
+\subsection{Feature Materialization}
+
+Most feature stores do not support feature materialization, and instead support ingestion of pre-computed features through streaming and batch ingest pipelines. Other feature stores (e.g. Tecton) offer built-in transformation tools. Existing feature transformation systems are usually built on top of multiple existing computational engines (e.g. Flink, Spark, AWS lambda) to support different ways of materializing features, making it difficult to apply general optimization techniques across them.
+
+For feature stores that support materialization (e.g. Tecton), there are typically three types of feature materialization: 
+\begin{enumerate}
+    \item \textbf{Batch}: Features are periodically refreshed (e.g. daily, hourly) with a batch processing system (e.g. Spark, Airflow). 
+    \item \textbf{Streaming}: Features are continually re-computed with new data arriving in a streaming fashion with a streaming system (e.g. Flink, Spark Streaming). 
+    \item \textbf{On-Demand (i.e. Lazy)}: The feature is materialized at query time (e.g. with a lambda function).
+\end{enumerate}
+Whether feature should be pre-materialized or materialized in real-time depends on the cost of featurization, the query latency requirements, and the rate of incoming new data and queries. Batch feature updates can be more cost effective for features which are not staleness sensitive. On-demand feature updates are cost effective when the latency of the feature computation is very low or there is not a requirement for low-latency queries. 
+
+Although we primarily focused on the case of steaming materialization of expensive features, the policies in \system{} can be applied to any case where only a subset of keys can be processed. This applies to both streaming materialization and batch materialization where the throughput may be limited. 
+
+Prior work in approximate query processing and approximate featurization \cite{willump} can also reduce the cost of feature materialization and be used in conjunction with batch, streaming, or on-demand materialization. We consider this line of work orthogonal, as both key-prioritization and feature approximation can be combined to reduce cost.  
+\sarah{this is a new section, please review}
+\joey{I like it!}
+
+
+\sarah{TODO: explicitly outline the types of featurization (batch, streaming, on-demand) and how they relate to FLAR. Remove sentence about "batch processing" being out of scope).}
+\joey{This is resolved now right?}
+
+%A challenge for streaming materialization of feature is the high-cardinality of many feature tables \textcolor{red}{(TODO: cite splunk paper} An e-commerce website could be storing feature for millions of users. As a result, even if the true feature values for each key as changing slowly, continually updating every feature value with new data can be computationally infeasible. Furthermore, data for all keys may not fit into memory, necessitating that only a subset of keys are updated at once. 
+
+\subsection{Feature Storage}
+Feature stores are typically responsible for serving features to online model serving pipelines with low latency, as well as storing large amounts of historical data and features for model training pipelines. As a result, feature stores typically contain two separate datastores: 1. an \textit{offline store} for offline training, and 2. a \textit{online store} online model serving. The offline store is usually a high-throughput, high-latency storage systems like cloud object stores or data lakes. The online store, however, must serve features with tight latency constraints (on the order of 100s of milliseconds). As a result, a smaller subset of features are often stored in in-memory K/V stores (e.g. Redis \cite{redis}).
+
+One challenge with splitting feature storage between separate online and offline stores is maintaining \textit{offline/online consistency}. Differences in the ways that features are ingested, materialized, or defined between the offline and online store results in slightly different sets of features being served to training pipelines and inference pipelines. Slight differences in features can results in \textit{data drift} for models, which can cause significant depredations in prediction accuracy. As a result, some feature stores will only allow direct updates to either the offline or online store, and syncs values from one store to another. While this approach can reduce the risk of data drift, synchronization can incur additional overhead and latency in updating features. In this paper, we only focused on materialization for the online store (as we focused on prediction serving), however future work should explore how scheduling policies could affect online and offline consistency. 
+
+
+\subsection{Limitations of Existing Feature Stores}
+Despite being designed for machine learning workloads, existing feature store systems do not account for accuracy in how they maintain feature values. Feature store are uniquely situated between updates to features and feature queried, but typically lack awareness of downstream query patterns and performance of the predictions made using queried features. As a result, systems for maintaining features treat all data updates and keys symmetrically and fail to leverage important information about which updates are critical and which keys are likely to be accessed in the downstream prediction workload. In the online setting, these systems make only a best-effort attempt at maintaining feature values up-to date. Features might become arbitrary stale, significantly hurting accuracy. While the cost of computing features in the online setting excludes keeping features, fully up-to-date, we find the current approach suboptimal. 
+
+%In this paper, we design a prototype feature store to estimate downstream accuracy impact of keys to intelligently schedule feature updates. We demonstrate that accuracy-aware scheduling of updates can satisfy our stated objective: build a resource efficient feature store. 
+
+
+
+
+

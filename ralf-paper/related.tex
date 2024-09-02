@@ -1,0 +1,69 @@
+\section{Related Work}
+\label{s:related-work}
+
+\myparagraph{Feature Stores} While industry has heavily adopted the use of feature stores~\cite{tecton,hopsworks}, academic research on these systems is limited, and remains focused on metadata and lineage management~\cite{kakantousis2019horizontally}. We discuss feature stores in depth in \cref{s:discussion}.
+
+%While there can been an explosion in the number of feature store projects and companies in industry \cite{tecton}\cite{hopsworks}, there has been limited work on feature stores in academia. Existing work primarily focuses on feature stores in the context of metadata and lineage management \cite{kakantousis2019horizontally}. Recent work by \cite{orr2021managing} proposes the need for managing expensive embeddings, including measuring quality and monitoring model performance. 
+
+\myparagraph{Approximate Query Processing} Approximate query processing reduces the cost and latency of queries by returning approximate results~\cite{agarwal2013blinkdb,chaudhuri2017aqp}. In the machine learning context, recent work investigates how cheaper and more expensive models can be combined to respond to queries \cite{kang2017noscope} while providing formal bounds on approximation~\cite{kang2020approximate}. \system{} focuses on minimizing how frequently feature computation takes place, not on minimizing computation costs. Approximate query processing could be used in conjunction with \system{} to target the latter. Investigating how these two approaches interplay is a promising avenue for future work. 
+
+%\myparagraph{Materialized View Maintenance} Feature tables can be thought of as a materialized view ~\cite{materialized-views} over raw data sources. Prior work in incremental view maintenance and partial view maintenance ~\cite{partially-materialized-views} have examined how to efficiently maintain views over changing data. Noria ~\cite{noria} uses partial state and eventual consistency to efficiently materialize tables both on events and on queries; however, Noria is tightly integrated with SQL and requires commutative, deterministic operators which is too restrictive for many machine learning workloads. In \system{}, we focus on workloads where the primary bottleneck is a 1-to-many \sarah{is there a better word for "1-to-many" map function over keys?} map function, where the output table is directly queried by the downstream application. Adding multiple materialized views, joins, and incremental updates would be interesting variation to add to \system{}'s policies in future work. 
+%\natacha{Mention Timely and Materialize? They are the ones that really focus on incremental view maintenance and on efficient recomputation}
+
+\myparagraph{Materialized View Maintenance}
+ Feature tables can be thought of as a materialized view ~\cite{materialized-views} over raw data sources. Prior work in incremental view maintenance and partial view maintenance ~\cite{partially-materialized-views} have examined how to efficiently maintain views over changing data. Noria ~\cite{noria} uses partial state and eventual consistency to efficiently materialize tables both on events and on queries. Timely Dataflow~\cite{timely-dataflow-book} leverages shared arrangements~\cite{DBLP:journals/pvldb/McSherryLSR20} to facilitate incremental recomputation of a view. No existing work focuses on \textit{when} to recompute a given view and how to prioritize across view to optimize application correctness. 
+
+\myparagraph{Prediction Serving} Most prior work in prediction serving \cite{clipper,crankshaw2020inferline} focuses on optimizing model
+serving resource efficiency but does not consider the feature stores in
+such pipelines; these systems exclusively target improving model inference and fail to consider data preprocessing and featurization. Systems
+that do consider featurization either focus on making use of cheaper 
+featurization functions which can be approximated without affecting prediction~\cite{willump}, or target specific application use cases such as video analytics~\cite{li2020towards,jiang2018chameleon,bhardwaj2020ekya}.
+
+%However prior work does not consider prediction serving pipelines with feature stores, primarily focuses on optimizing model inference rather than data preprocessing and featurization. 
+%Some work in serving has focused on join optimization of featurizaiton and inference \cite{kang2020jointly} \cite{kraft2019willump}. Willup uses cheaper featurization functions for features which can be approximated without significantly affecting the prediction result (e.g. for "easy" inputs, of top-K queries) to reduce model inference cost. However Willump does not explore the tradeoffs with using stale features, and focuses on approximating the computation. Prior work in inference over video streams has considered the effect of stale object prediction on downstream tasks \cite{li2020towards}, but is specific to the context of streaming inference on video. Work in video analytics has also explored real-time adaptation of video analytics pipelines with periodic profiling \cite{jiang2018chameleon}\cite{bhardwaj2020ekya}, but is also specific to video analytics and cannot be applied to evaluating and configuring feature stores. 
+
+%\myparagraph{Feature Selection} Prior work such as Pyramid ~\cite{lecuyer2017pyramid} has examined how subsets of data can be selected to reduce privacy risk of data being trained on. \natacha{I would remove, not necessary I don't think}
+
+%\myparagraph{OLTP/OLAP} \natacha{I would remove, not necessary I don't think}
+
+\myparagraph{Staleness and Consistency} Trading-off consistency for performance is a well-known strategy in modern large-scale distributed systems. These key-value stores or databases relax constraints on when and how operations must take effect, reducing the cost of synchronization~\cite{cooper2008pnuts,lloyd2011cops,sivasubramanian2012amazon, lloyd2011cops,bailis2012pbs,terry2013pileus,yu2022conit,cui2014bounded}. The flip-side is the increased programmer burden in defending against the potential unexpected application behaviours that arise from these relaxed guarantees~\cite{crooks2016tardis, bailis2012pbs}. To minimize this issue, prior work either 1) distinguishes between operations whose ordering can be safely relaxed~\cite{li2012redblue, kraska2013mdcc, bailis20iva} 2) bounds divergence from the true value when possible~\cite{yu2022conit,holt2016disciplined, wu1992divergence, cui2014bounded, wong1992bounded}. The former is often restrictive, while the latter does not discuss the application-level consequences of diverging from the true value. These limitations have led to skepticism as to whether weak consistency is valuable option for developers. Feature store systems, in contrast, have \textit{explicit} metrics and mechanisms to understand loss of correctness; they are thus uniquely positioned to leverage weak consistency and the staless/consistency tradeoff that it enables. 
+
+%\myparagraph{Streaming dataflow systems} \natacha{Would remove, not saying something especially interesting right now, and you could have easily implemented your system on top of them. You say in Sec 2 that you could, I suspect that's enough? I would disagree with Joe, to me the implementation is pretty important rather than the API as they make very different tradeoffs (timely vs Noria is pretty fundamental for ex), but not necessary or now? }
+%\jmh{Again, I think this is a big old red herring. You can almost certainly use any dataflow system to express the mappings you want from inputs to outputs; the good stuff you're doing it the (re-)parameterization of those mappings over time. I feel like you are calling out to these systems to appease somebody, when at the end of the day what matters is the choice of dataflow/query you write in these systems, not the implementation of the systems. Personally I think relational languages (algebra, SQL, etc) are a fine choice since you want to express at each update an arbitrary mapping from input data to output features; various ``query templates'' capture the properties of the mapping--the relation!--between inputs and outputs over time in a way you could characterize nicely. ANyhow, I recommend that you stay above the fray and argue for the intrinsic value (and portability!) of setting up and solving the proper optimization problem.}
+%
+
+
+%\myparagraph{Model Training}
+% Chameleon
+% - dynamically picks best configuration for ML video analytics pipelines.
+% - computes accuracy relative to a "golden configuration".
+% - reconfigures pipelines using similarities to trim the search space,
+%   rather than prioritizing computation.
+% Ekya
+% - Uses profiler to select models on edge video analytics systems to retrain.
+% - Mitigates data drift, navigates tradeoff b/t retrained model accuracy and inference accuracy.
+% Clipper
+% - Uses adaptive online model selection to improve accuracy.
+% - Attempts to meet throughput and latency SLOs
+% - Does not prioritize/deprioritize per-key features to reduce resource
+%   consumption while maintaining high accuracy.
+% Inferline
+% - Manages stages of a prediction pipeline to meet e2e tail latency constraints and minimize cost.
+% - Inferline tuner responds to changes in query patterns.
+% - Doesn't focus on e2e accuracy of the application.
+% SEDA
+% - Consists of stages, similar to RALF operators.
+% - Provides control mechanisms for automatic tuning and load conditioning of each stage,
+%   similar to RALF per-operator prioritization policies.
+% - Not aware of e2e accuracy, focuses on xput, response time, fairness to clients.
+% Willump
+% - Uses cascades to classify and quickly generate features for "easy" data, falling back to more expensive models.
+% - Optimizes top-k queries using approximation to filter out low-scoring inputs.
+% Parameter server
+% TODO?
+
+% Systems for continual learning have explored cost accuracy tradeoffs with model training for specific applications. Recent work explores optimizing accuracy for video analytics on edge 
+% devices~\cite{chameleon,ekya}, by balancing resource allocation between training and serving. However, the solutions rely on close observations of
+% specific application characteristics. 
+%
+

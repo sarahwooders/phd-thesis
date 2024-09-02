@@ -1,0 +1,12 @@
+\section{Conclusion}
+\label{s:conclusions}
+
+In this paper, we studied the challenge of feature maintenance in feature stores, an emerging new class of systems.
+First, we identified a critical limitation in existing approaches to feature store design: current feature stores treat data and keys symmetrically and do not leverage crucial signal about query access patterns or the impact of features on downstream task performance.
+We then formalized the feature store problem and introduced \textit{feature store regret}, a metric that measures the impact of staleness of features on the downstream prediction accuracy.
+Finally, we presented \system{}, a feature store system that uses prediction loss as feedback to prioritize updates that improve the downstream accuracy via Regret-Proportional scheduling.
+Experiments on a range of feature maintenance policies demonstrate that prioritizing replacing features with the highest \textit{cumulative regret} can significantly improve prediction accuracy in resource-constrained settings. We believe this paper will provide a formal foundation for a key problem in the emerging class of feature store systems and hope that it will inspire future work in the design of more advanced feature maintenance strategies.
+% \begin{itemize}
+%     \item Co-scheduling queries and updates 
+%     \item Sharing state 
+% \end{itemize}

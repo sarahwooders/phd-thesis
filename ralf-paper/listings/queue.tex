@@ -1,0 +1,33 @@
+\begin{lstlisting}[
+language=Python, 
+caption=Example of a downstream application serving predictions using queried feature values and posting error feedback once the result is observed. , 
+escapechar={|},  
+basicstyle=\small,
+commentstyle=\color{blue}\sffamily,
+stringstyle=\color{red}\sffamily,
+numberstyle=\color{gray}\sffamily,
+label={lst:model_scheduler}
+]
+class CartAbandonmentModel:
+    client = ralf.client(table="user_features")
+    cache = {}
+
+    # serve prediction requests 
+    def predict(user_id, cart_id): 
+        feature, fid = client.get(user_id)
+        cache[cart_id] = {
+          "pred": model.predict(feature, cart_id),
+          "feature_id": fid, 
+          "feature_key": user_id
+        }
+        return cache[cart_id]
+        
+    # post feedback when label is received 
+    def on_label(cart_id, checkout: bool):
+        error = MSE(cache[cart_id]["pred"], checkout)
+        client.feedback(
+          key=cache[cart_id]["feature_key"],
+          feature_id=cache[cart_id]["feature_id"],
+          error=error
+        )
+\end{lstlisting}

@@ -1,0 +1,210 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\citation{lee2019latent,guu2020retrieval,packer2023memgpt,lewis2020retrieval}
+\citation{koren2009matrix,DLRM19}
+\citation{openai,cohere}
+\citation{sivasubramanian2012amazon,cooper2008pnuts}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Feature stores serve materialized feature values to downstream models. RALF{} leverage downstream model feedback to prioritize expensive feature updates (\cref  {ss:scheduling-policy}).\relax }}{2}{figure.caption.6}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{f:overview}{{1.1}{2}{Feature stores serve materialized feature values to downstream models. \system {} leverage downstream model feedback to prioritize expensive feature updates (\cref {ss:scheduling-policy}).\relax }{figure.caption.6}{}}
+\newlabel{f:overview@cref}{{[figure][1][1]1.1}{[1][2][]2}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}Introduction}{2}{section.1.3}\protected@file@percent }
+\newlabel{s:introduction}{{1.3}{2}{Introduction}{figure.caption.6}{}}
+\newlabel{s:introduction@cref}{{[section][3][1]1.3}{[1][2][]2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces The prediction loss (measured by MASE) on the left is correlated with the feature staleness (time since last update), show on the right. \relax }}{4}{figure.caption.7}\protected@file@percent }
+\newlabel{f:staleness}{{1.2}{4}{The prediction loss (measured by MASE) on the left is correlated with the feature staleness (time since last update), show on the right. \relax }{figure.caption.7}{}}
+\newlabel{f:staleness@cref}{{[figure][2][1]1.2}{[1][4][]4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces A ML serving pipeline with a feature store. \relax }}{4}{figure.caption.8}\protected@file@percent }
+\newlabel{f:feature-store}{{1.3}{4}{A ML serving pipeline with a feature store. \relax }{figure.caption.8}{}}
+\newlabel{f:feature-store@cref}{{[figure][3][1]1.3}{[1][4][]4}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Background}{4}{section.1.4}\protected@file@percent }
+\newlabel{s:background}{{1.4}{4}{Background}{section.1.4}{}}
+\newlabel{s:background@cref}{{[section][4][1]1.4}{[1][4][]4}}
+\citation{feature-tools}
+\citation{DLRM19}
+\citation{featurestoresorg,tecton,hopsworks,amazon}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}Feature Stores}{5}{subsection.1.4.1}\protected@file@percent }
+\citation{clipper,crankshaw2020inferline}
+\citation{mishra2021onlinestl}
+\citation{mishra2021onlinestl}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}Feature Maintenance}{6}{subsection.1.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces Average staleness in a 1-minute time window across all keys as a function as the cardinality.\relax }}{7}{figure.caption.9}\protected@file@percent }
+\newlabel{f:flink}{{1.4}{7}{Average staleness in a 1-minute time window across all keys as a function as the cardinality.\relax }{figure.caption.9}{}}
+\newlabel{f:flink@cref}{{[figure][4][1]1.4}{[1][7][]7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}A Feature Store Reference Model}{7}{subsection.1.4.3}\protected@file@percent }
+\newlabel{lst:cache-maintenance}{{1.4.3}{8}{}{lstlisting.1.-2}{}}
+\newlabel{lst:cache-maintenance@cref}{{[subsection][3][1,4]1.4.3}{[1][8][]8}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}Efficient Feature Maintenance}{8}{section.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.1}Feature Approximation}{8}{subsection.1.5.1}\protected@file@percent }
+\newlabel{sec:approximation}{{1.5.1}{8}{Feature Approximation}{subsection.1.5.1}{}}
+\newlabel{sec:approximation@cref}{{[subsection][1][1,5]1.5.1}{[1][8][]8}}
+\newlabel{eqn:delayedupdate}{{1.4}{9}{Feature Approximation}{equation.1.5.4}{}}
+\newlabel{eqn:delayedupdate@cref}{{[equation][4][1]1.4}{[1][8][]9}}
+\@writefile{toc}{\contentsline {subsubsection}{Evaluating Approximation Quality}{9}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.2}Feature Store Regret}{9}{subsection.1.5.2}\protected@file@percent }
+\newlabel{ss:regret}{{1.5.2}{9}{Feature Store Regret}{subsection.1.5.2}{}}
+\newlabel{ss:regret@cref}{{[subsection][2][1,5]1.5.2}{[1][9][]9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.3}Scheduling with Error Feedback: Regret-Proportional Scheduling}{10}{subsection.1.5.3}\protected@file@percent }
+\newlabel{ss:online-scheduling-error-feedback}{{1.5.3}{10}{Scheduling with Error Feedback: Regret-Proportional Scheduling}{subsection.1.5.3}{}}
+\newlabel{ss:online-scheduling-error-feedback@cref}{{[subsection][3][1,5]1.5.3}{[1][9][]10}}
+\@writefile{toc}{\contentsline {subsubsection}{Formulation}{10}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Error Feedback}{10}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Scheduling Policy}{11}{section*.13}\protected@file@percent }
+\newlabel{ss:scheduling-policy}{{1.5.3}{11}{Scheduling Policy}{section*.13}{}}
+\newlabel{ss:scheduling-policy@cref}{{[subsection][3][1,5]1.5.3}{[1][10][]11}}
+\newlabel{eq:cumulative_regret}{{1.9}{11}{Scheduling Policy}{equation.1.5.9}{}}
+\newlabel{eq:cumulative_regret@cref}{{[equation][9][1]1.9}{[1][10][]11}}
+\@writefile{toc}{\contentsline {subsubsection}{Default Regret}{11}{section*.14}\protected@file@percent }
+\newlabel{ss:default-regret}{{1.5.3}{11}{Default Regret}{section*.14}{}}
+\newlabel{ss:default-regret@cref}{{[subsection][3][1,5]1.5.3}{[1][11][]11}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.6}System Design and Architecture}{11}{section.1.6}\protected@file@percent }
+\newlabel{s:design}{{1.6}{11}{System Design and Architecture}{section.1.6}{}}
+\newlabel{s:design@cref}{{[section][6][1]1.6}{[1][11][]11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.1}RALF{} Server}{12}{subsection.1.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Transformation}{12}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Scheduling}{12}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Scaling}{12}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.2}RALF{} Client}{12}{subsection.1.6.2}\protected@file@percent }
+\citation{ray}
+\citation{tensorflow}
+\newlabel{table:workloads}{{\caption@xref {table:workloads}{ on input line 6}}{13}{Evaluation}{table.caption.19}{}}
+\newlabel{table:workloads@cref}{{[section][7][1]1.7}{[1][13][]13}}
+\@writefile{lot}{\contentsline {table}{\numberline {1.1}{\ignorespaces Workload attributes. The \textit  {Runtime} column refers to the featurization update runtime for a single key. The \textit  {Min Loss} and \textit  {Max Loss} columns show the overall loss given infinite budget and zero budget for featurization, respectively. The minimum loss for the Azure dataset is shown in \cref  {f:stl-time}. \relax }}{13}{table.caption.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.3}Scheduling Policy}{13}{subsection.1.6.3}\protected@file@percent }
+\newlabel{ss:design:scheduler}{{1.6.3}{13}{Scheduling Policy}{subsection.1.6.3}{}}
+\newlabel{ss:design:scheduler@cref}{{[subsection][3][1,6]1.6.3}{[1][12][]13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.4}Implementation}{13}{subsection.1.6.4}\protected@file@percent }
+\newlabel{ss:design:implementation}{{1.6.4}{13}{Implementation}{subsection.1.6.4}{}}
+\newlabel{ss:design:implementation@cref}{{[subsection][4][1,6]1.6.4}{[1][13][]13}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.7}Evaluation}{13}{section.1.7}\protected@file@percent }
+\newlabel{s:evaluation}{{1.7}{13}{Evaluation}{section.1.7}{}}
+\newlabel{s:evaluation@cref}{{[section][7][1]1.7}{[1][13][]13}}
+\citation{wang2021online,mishra2021onlinestl}
+\citation{laptev2015yahoo}
+\citation{cortez2017resource}
+\citation{seabold2010statsmodels}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.1}Workloads}{14}{subsection.1.7.1}\protected@file@percent }
+\newlabel{ss:workloads}{{1.7.1}{14}{Workloads}{subsection.1.7.1}{}}
+\newlabel{ss:workloads@cref}{{[subsection][1][1,7]1.7.1}{[1][14][]14}}
+\newlabel{ss:evaluation:workloads}{{1.7.1}{14}{Workloads}{subsection.1.7.1}{}}
+\newlabel{ss:evaluation:workloads@cref}{{[subsection][1][1,7]1.7.1}{[1][14][]14}}
+\@writefile{toc}{\contentsline {subsubsection}{Anomaly Detection}{14}{section*.20}\protected@file@percent }
+\citation{movielens1m}
+\citation{cortez2017resource}
+\@writefile{toc}{\contentsline {subsubsection}{Recommendation}{15}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.2}End-to-End Evaluation}{15}{subsection.1.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Experimental Setup}{15}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Policy Error}{16}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Scaling Evaluation}{16}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Scheduling Overhead}{16}{section*.27}\protected@file@percent }
+\newlabel{s:overhead}{{1.7.2}{16}{Scheduling Overhead}{section*.27}{}}
+\newlabel{s:overhead@cref}{{[subsection][2][1,7]1.7.2}{[1][16][]16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.3}Policy Ablations}{17}{subsection.1.7.3}\protected@file@percent }
+\newlabel{s:policy-evaluation}{{1.7.3}{17}{Policy Ablations}{subsection.1.7.3}{}}
+\newlabel{s:policy-evaluation@cref}{{[subsection][3][1,7]1.7.3}{[1][17][]17}}
+\@writefile{toc}{\contentsline {subsubsection}{Policies}{17}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Prediction Error }{17}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Regret-Proportional Policy}{18}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Distribution of Updates}{18}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Optimizing Feature Staleness versus Feature Quality}{18}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Query Distributions}{19}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.4}How well can future error be predicted?}{19}{subsection.1.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.5}Regret-Proportional Scheduling Limitations}{19}{subsection.1.7.5}\protected@file@percent }
+\citation{tecton,hopsworks}
+\citation{kakantousis2019horizontally}
+\citation{agarwal2013blinkdb,chaudhuri2017aqp}
+\citation{kang2017noscope}
+\citation{kang2020approximate}
+\citation{materialized-views}
+\citation{partially-materialized-views}
+\citation{noria}
+\citation{timely-dataflow-book}
+\citation{DBLP:journals/pvldb/McSherryLSR20}
+\citation{clipper,crankshaw2020inferline}
+\citation{willump}
+\citation{li2020towards,jiang2018chameleon,bhardwaj2020ekya}
+\citation{cooper2008pnuts,lloyd2011cops,sivasubramanian2012amazon,lloyd2011cops,bailis2012pbs,terry2013pileus,yu2022conit,cui2014bounded}
+\citation{crooks2016tardis,bailis2012pbs}
+\citation{li2012redblue,kraska2013mdcc,bailis20iva}
+\citation{yu2022conit,holt2016disciplined,wu1992divergence,cui2014bounded,wong1992bounded}
+\@writefile{toc}{\contentsline {section}{\numberline {1.8}Related Work}{20}{section.1.8}\protected@file@percent }
+\newlabel{s:related-work}{{1.8}{20}{Related Work}{section.1.8}{}}
+\newlabel{s:related-work@cref}{{[section][8][1]1.8}{[1][20][]20}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.9}Discussion}{21}{section.1.9}\protected@file@percent }
+\newlabel{s:discussion}{{1.9}{21}{Discussion}{section.1.9}{}}
+\newlabel{s:discussion@cref}{{[section][9][1]1.9}{[1][21][]21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.9.1}Feature Materialization}{21}{subsection.1.9.1}\protected@file@percent }
+\citation{willump}
+\citation{redis}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.9.2}Feature Storage}{22}{subsection.1.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.9.3}Limitations of Existing Feature Stores}{22}{subsection.1.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.10}Conclusion}{23}{section.1.10}\protected@file@percent }
+\newlabel{s:conclusions}{{1.10}{23}{Conclusion}{section.1.10}{}}
+\newlabel{s:conclusions@cref}{{[section][10][1]1.10}{[1][22][]23}}
+\newlabel{lst:api}{{1.1}{24}{Defining a maintained feature table of user embeddings with RALF}{lstlisting.1.1}{}}
+\newlabel{lst:api@cref}{{[lstlisting][1][1]1.1}{[1][11][]24}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.1}Defining a maintained feature table of user embeddings with RALF.}{24}{lstlisting.1.1}\protected@file@percent }
+\newlabel{lst:model_scheduler}{{1.2}{24}{Example of a downstream application serving predictions using queried feature values and posting error feedback once the result is observed}{lstlisting.1.2}{}}
+\newlabel{lst:model_scheduler@cref}{{[lstlisting][2][1]1.2}{[1][11][]24}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.2}Example of a downstream application serving predictions using queried feature values and posting error feedback once the result is observed.}{24}{lstlisting.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces Smoothed Average MASE per Timestep over 275,077 keys. \relax }}{25}{figure.caption.22}\protected@file@percent }
+\newlabel{f:stl-time}{{1.5}{25}{Smoothed Average MASE per Timestep over 275,077 keys. \relax }{figure.caption.22}{}}
+\newlabel{f:stl-time@cref}{{[figure][5][1]1.5}{[1][15][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces System throughput versus number of cores.\relax }}{25}{figure.caption.26}\protected@file@percent }
+\newlabel{f:stl-throughput}{{1.6}{25}{System throughput versus number of cores.\relax }{figure.caption.26}{}}
+\newlabel{f:stl-throughput@cref}{{[figure][6][1]1.6}{[1][16][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces Left: Prediction error versus total featurization updates (over the entire experiment). Right: Error increase (compared to optimal features with unlimited budget) for varied update budgets.\relax }}{25}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:results-all-line}{{1.7}{25}{Left: Prediction error versus total featurization updates (over the entire experiment). Right: Error increase (compared to optimal features with unlimited budget) for varied update budgets.\relax }{figure.caption.28}{}}
+\newlabel{fig:results-all-line@cref}{{[figure][7][1]1.7}{[1][17][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces Regret-Proportional Improvement over Minimum-Past for users in the training set (Trained) versus new users (Untrained) in the Recommendation workload. \relax }}{25}{figure.caption.32}\protected@file@percent }
+\newlabel{f:user_variance}{{1.8}{25}{Regret-Proportional Improvement over Minimum-Past for users in the training set (Trained) versus new users (Untrained) in the Recommendation workload. \relax }{figure.caption.32}{}}
+\newlabel{f:user_variance@cref}{{[figure][8][1]1.8}{[1][18][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.9}{\ignorespaces \textbf  {Distribution of featurization updates (Anomaly Detection):} The Regret-Proportional policy has the most variability in number of updates per key.\relax }}{26}{figure.caption.34}\protected@file@percent }
+\newlabel{f:update_variance}{{1.9}{26}{\textbf {Distribution of featurization updates (Anomaly Detection):} The Regret-Proportional policy has the most variability in number of updates per key.\relax }{figure.caption.34}{}}
+\newlabel{f:update_variance@cref}{{[figure][9][1]1.9}{[1][18][]26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.10}{\ignorespaces \textbf  {Queried feature staleness (Anomaly Detection):} Average staleness at query time across key, measured by the number of timesteps since the last update.\relax }}{26}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:stl-yahoo-staleness}{{1.10}{26}{\textbf {Queried feature staleness (Anomaly Detection):} Average staleness at query time across key, measured by the number of timesteps since the last update.\relax }{figure.caption.36}{}}
+\newlabel{fig:stl-yahoo-staleness@cref}{{[figure][10][1]1.10}{[1][19][]26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.11}{\ignorespaces \textbf  {Frequency of user queries over timestamps.}\relax }}{26}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:als-user-dist}{{1.11}{26}{\textbf {Frequency of user queries over timestamps.}\relax }{figure.caption.38}{}}
+\newlabel{fig:als-user-dist@cref}{{[figure][11][1]1.11}{[1][19][]26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.12}{\ignorespaces \textbf  {Recommendation workload with modified query inter-arrival time shows similar results.}\relax }}{26}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:als-dist}{{1.12}{26}{\textbf {Recommendation workload with modified query inter-arrival time shows similar results.}\relax }{figure.caption.39}{}}
+\newlabel{fig:als-dist@cref}{{[figure][12][1]1.12}{[1][19][]26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.13}{\ignorespaces Predicting next timestep error for different window sizes (number of past errors) and offset (timestep delay of the window).\relax }}{27}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:predict_error}{{1.13}{27}{Predicting next timestep error for different window sizes (number of past errors) and offset (timestep delay of the window).\relax }{figure.caption.40}{}}
+\newlabel{fig:predict_error@cref}{{[figure][13][1]1.13}{[1][19][]27}}
+\@setckpt{ralf/main}{
+\setcounter{page}{28}
+\setcounter{equation}{11}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{1}
+\setcounter{section}{10}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{13}
+\setcounter{table}{1}
+\setcounter{NAT@ctr}{0}
+\setcounter{Item}{9}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{32}
+\setcounter{parentequation}{0}
+\setcounter{lstnumber}{23}
+\setcounter{caption@flags}{0}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{float@type}{16}
+\setcounter{algorithm}{0}
+\setcounter{@todonotes@numberoftodonotes}{0}
+\setcounter{section@level}{1}
+\setcounter{lstlisting}{2}
+}

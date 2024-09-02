@@ -1,0 +1,21 @@
+\begin{lstlisting}[
+language=Python, 
+caption=Defining a maintained feature table of user embeddings with RALF. , 
+escapechar={|},  
+basicstyle=\small,
+commentstyle=\color{blue}\sffamily,
+stringstyle=\color{red}\sffamily,
+numberstyle=\color{gray}\sffamily,
+label={lst:api}
+]
+# Source table 
+source = ralf.tables.kafka_source(topic="user_data")
+
+# Queryable feature table 
+embedding = source
+    .map(UserEmbeddingModel, model_file="model.pt")
+    .as_queryable("user_features")
+    .set_replicas(4)
+    .set_default_error(0.01)
+\end{lstlisting}
+

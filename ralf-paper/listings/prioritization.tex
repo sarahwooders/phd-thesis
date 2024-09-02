@@ -1,0 +1,6 @@
+\begin{lstlisting}[language=Python, caption=Event prioritization example implementing LIFO prioritization., label={lst:prioritization}]
+def lifo_prioritization(
+    current: Record, candidate: Record):
+    return (current.processing_time
+             > candidate.processing_time)
+\end{lstlisting}
